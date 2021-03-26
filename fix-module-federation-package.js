@@ -1,4 +1,4 @@
-const fs = require('fs/promises');
+const fs = require('fs');
 const path = require('path');
 
 const packageJsonPath = path.join(
@@ -6,16 +6,12 @@ const packageJsonPath = path.join(
   'node_modules/@angular-architects/module-federation/package.json'
 );
 
-fs.readFile(packageJsonPath, { encoding: 'utf8' })
-  .then((fileContents) => {
-    const parsedContents = JSON.parse(fileContents);
-    return {
-      ...parsedContents,
-      main: parsedContents.main.replace('\\', '/'),
-      typings: parsedContents.typings.replace('\\', '/'),
-    };
-  })
-  .then((sanitizedContents) => JSON.stringify(sanitizedContents, null, 2))
-  .then((newContents) =>
-    fs.writeFile(packageJsonPath, newContents, { encoding: 'utf8' })
-  );
+const originalContents = fs.readFileSync(packageJsonPath, { encoding: 'utf8' });
+const parsedContents = JSON.parse(originalContents);
+const sanitizedContents = {
+  ...parsedContents,
+  main: parsedContents.main.replace('\\', '/'),
+  typings: parsedContents.typings.replace('\\', '/')
+};
+const newContents = JSON.stringify(sanitizedContents, null, 2);
+fs.writeFileSync(packageJsonPath, newContents, { encoding: 'utf8' });

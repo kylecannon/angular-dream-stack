@@ -4,9 +4,6 @@
   "resolutions": {
     "webpack": "^5.0.0"
   },
-  "engines": {
-    "node": ">=10.0.0"
-  },
   "scripts": {
     "ng": "nx",
     "start": "ng serve",
@@ -59,6 +56,7 @@
     "@nrwl/angular": "11.5.2",
     "@nrwl/workspace": "11.5.2",
     "angular-in-memory-web-api": "^0.11.0",
+    "lodash": "^4.17.21",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "uuid": "^8.3.1",
