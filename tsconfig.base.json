@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "es2020",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@angular-dream/toh": ["libs/toh/src/index.ts"],
+      "@angular-dream/dashboard": ["libs/dashboard/src/index.ts"],
+      "@angular-dream/feature-app-view": ["libs/feature-app-view/src/index.ts"],
+      "@angular-dream/app-utils": ["libs/app-utils/src/index.ts"],
+      "@angular-dream/counter": ["libs/counter/src/index.ts"],
+      "@angular-dream/scoreboard": ["libs/scoreboard/src/index.ts"]
+    },
+    "rootDir": "."
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}

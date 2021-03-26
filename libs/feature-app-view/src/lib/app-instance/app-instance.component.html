@@ -1,0 +1,11 @@
+<angular-dream-app-container
+  *ngrxLet="appRegistration | createAppNgModuleRef: injector; let ngModuleRef"
+  [ngModuleRef]="ngModuleRef"
+  [style.min-height.px]="appRegistration.defaultHeightPx"
+>
+  <angular-dream-app-header
+    (removeApp)="removeApp.next()"
+    [appName]="appRegistration.name"
+  >
+  </angular-dream-app-header>
+</angular-dream-app-container>

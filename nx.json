@@ -1,0 +1,24 @@
+{
+  "npmScope": "angular-dream",
+  "affected": { "defaultBase": "master" },
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tslint.json": "*",
+    ".eslintrc.json": "*",
+    "nx.json": "*",
+    "tsconfig.base.json": "*"
+  },
+  "projects": {
+    "mfe-toh": { "tags": [] },
+    "toh": { "tags": [] },
+    "dashboard": { "tags": [] },
+    "mfe-dashboard": { "tags": [] },
+    "feature-app-view": { "tags": [] },
+    "app-utils": { "tags": [] },
+    "mfe-counter": { "tags": [] },
+    "counter": { "tags": [] },
+    "mfe-scoreboard": { "tags": [] },
+    "scoreboard": { "tags": [] }
+  }
+}

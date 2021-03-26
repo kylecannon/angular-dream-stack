@@ -1,0 +1,12 @@
+<a routerLink="/first">First Route</a>
+<br />
+<a routerLink="/second">Second Route</a>
+
+<router-outlet></router-outlet>
+
+<app-counter></app-counter>
+
+<div class="current-state">
+  Current State:
+  <pre>{{ store$ | async | json }}</pre>
+</div>

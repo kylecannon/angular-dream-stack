@@ -1,0 +1,9 @@
+<p>Home Score: {{ homeScore$ | async }}</p>
+<p>Away Score: {{ awayScore$ | async }}</p>
+
+<button mat-raised-button color="primary" (click)="addPointToHome()">
+  Home Scored
+</button>
+<button mat-raised-button color="accent" (click)="addPointToAway()">
+  Away Scored
+</button>

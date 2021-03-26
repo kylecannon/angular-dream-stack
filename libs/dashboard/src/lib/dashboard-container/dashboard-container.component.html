@@ -1,0 +1,26 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <mat-action-list>
+      <button
+        mat-list-item
+        *ngFor="let appKey of availableApps | keyvalue; trackBy: trackByIdx"
+        (click)="addApp(appKey.key)"
+      >
+        <mat-icon matListIcon>add</mat-icon>
+        {{ appKey.key }}
+      </button>
+    </mat-action-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="apps">
+      <ng-container *ngFor="let app of placedApps; trackBy: trackByUuid">
+        <angular-dream-app-instance
+          [appRegistration]="app"
+          [id]="app.id"
+          (removeApp)="removeApp(app.id)"
+        >
+        </angular-dream-app-instance>
+      </ng-container>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

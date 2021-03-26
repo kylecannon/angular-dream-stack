@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+:host {
+  @include mat-elevation(2);
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  padding: 0 10px 10px;
+  user-select: none;
+}
