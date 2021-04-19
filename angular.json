@@ -173,6 +173,29 @@
       "sourceRoot": "apps/mfe-dashboard/src",
       "prefix": "angular-dream",
       "architect": {
+        "netlify-build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "yarn nx run mfe-dashboard:build-all",
+              "mv dist/apps/* dist/",
+              "mv dist/mfe-dashboard/* dist/"
+            ],
+            "parallel": false
+          }
+        },
+        "build-all": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "yarn build mfe-dashboard --environment prod",
+              "yarn build mfe-counter --environment prod",
+              "yarn build mfe-scoreboard --environment prod",
+              "yarn build mfe-toh --environment prod"
+            ],
+            "parallel": true
+          }
+        },
         "serve-all": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {

@@ -4,26 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DashboardModule } from '@angular-dream/dashboard';
+import { environment } from '../environments/environment';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    RouterModule.forRoot(
-      [
-        {
-          path: 'dashboard',
-          loadChildren: () =>
-            import('@angular-dream/dashboard').then((m) => m.DashboardModule),
-        },
-        {
-          path: '',
-          redirectTo: 'dashboard',
-          pathMatch: 'full',
-        },
-      ],
-      {}
-    ),
+    DashboardModule.forRoot(environment.production),
+    RouterModule.forRoot([], {}),
   ],
   providers: [],
   bootstrap: [AppComponent],

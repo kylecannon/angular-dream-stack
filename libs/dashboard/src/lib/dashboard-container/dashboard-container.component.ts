@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AvailableApps } from '../available-apps';
 import * as uuid from 'uuid';
 import { Store } from '@ngrx/store';
 import { State } from '../reducers';
 import { AppRegistration } from '@angular-dream/app-utils';
+import { AVAILABLE_APPS } from '../../tokens';
 
 type PlacedApp = AppRegistration & { id: string };
-
+type AvailableApps = { [appName: string]: AppRegistration };
 @Component({
   selector: 'app-dashboard-container',
   templateUrl: './dashboard-container.component.html',
@@ -15,16 +16,17 @@ type PlacedApp = AppRegistration & { id: string };
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardContainerComponent {
-  readonly availableApps = AvailableApps.reduce(
-    (acc, appRegistration) => ({
-      ...acc,
-      [appRegistration.name]: appRegistration,
-    }),
-    {}
-  );
+  availableApps: AvailableApps = {};
   placedApps: PlacedApp[] = [];
 
-  constructor(public store$: Store<State>) {}
+  constructor(
+    @Inject(AVAILABLE_APPS)
+    availableApps: { [appName: string]: AppRegistration },
+    public store$: Store<State>
+  ) {
+    console.log({ availableApps });
+    this.availableApps = availableApps;
+  }
 
   trackByIdx(idx: number) {
     return idx;
@@ -41,9 +43,9 @@ export class DashboardContainerComponent {
     ];
   }
 
-  removeApp(uuid: string) {
+  removeApp(id: string) {
     const indexToRemove = this.placedApps.findIndex(
-      (potent) => potent.id === uuid
+      (potent) => potent.id === id
     );
     this.placedApps = [
       ...this.placedApps.slice(0, indexToRemove),

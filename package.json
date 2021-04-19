@@ -7,6 +7,8 @@
   "scripts": {
     "ng": "nx",
     "start": "ng serve",
+    "build:netlify": "nx run mfe-dashboard:netlify-build",
+    "build-all": "nx run mfe-dashboard:build-all",
     "run-all": "nx run mfe-dashboard:serve-all",
     "build": "ng build",
     "test": "ng test",

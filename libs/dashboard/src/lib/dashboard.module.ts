@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Inject, Optional, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
 import { Route, RouterModule } from '@angular/router';
@@ -14,6 +14,8 @@ import { CustomSerializer } from './custom-route-serializer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatListModule } from '@angular/material/list';
 import { FeatureAppViewModule } from '@angular-dream/feature-app-view';
+import { AVAILABLE_APPS } from '../tokens';
+import { AvailableApps } from './available-apps';
 
 const routes: Route[] = [
   {
@@ -52,4 +54,26 @@ const routes: Route[] = [
 })
 export class DashboardModule implements LoadableApp {
   EntryComponent = DashboardContainerComponent;
+
+  static forRoot(
+    productionBuild: boolean
+  ): ModuleWithProviders<DashboardModule> {
+    return {
+      ngModule: DashboardModule,
+      providers: [
+        {
+          provide: AVAILABLE_APPS,
+          useFactory: () => {
+            return AvailableApps(productionBuild).reduce(
+              (acc, appRegistration) => ({
+                ...acc,
+                [appRegistration.name]: appRegistration,
+              }),
+              {}
+            );
+          },
+        },
+      ],
+    };
+  }
 }
