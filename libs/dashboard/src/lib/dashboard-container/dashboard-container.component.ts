@@ -24,7 +24,6 @@ export class DashboardContainerComponent {
     availableApps: { [appName: string]: AppRegistration },
     public store$: Store<State>
   ) {
-    console.log({ availableApps });
     this.availableApps = availableApps;
   }
 
