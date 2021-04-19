@@ -11,7 +11,7 @@ const parsedContents = JSON.parse(originalContents);
 const sanitizedContents = {
   ...parsedContents,
   main: parsedContents.main.replace('\\', '/'),
-  typings: parsedContents.typings.replace('\\', '/')
+  typings: parsedContents.typings.replace('\\', '/'),
 };
 const newContents = JSON.stringify(sanitizedContents, null, 2);
 fs.writeFileSync(packageJsonPath, newContents, { encoding: 'utf8' });
