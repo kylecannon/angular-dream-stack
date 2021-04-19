@@ -188,10 +188,10 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              "yarn build mfe-dashboard --environment prod",
-              "yarn build mfe-counter --environment prod",
-              "yarn build mfe-scoreboard --environment prod",
-              "yarn build mfe-toh --environment prod"
+              "yarn build mfe-dashboard --prod",
+              "yarn build mfe-counter --prod",
+              "yarn build mfe-scoreboard --prod",
+              "yarn build mfe-toh --prod"
             ],
             "parallel": true
           }
