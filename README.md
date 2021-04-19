@@ -1,6 +1,10 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ebfd4a53-ce46-4b6b-84f6-cd63985cb9cc/deploy-status)](https://app.netlify.com/sites/ngx-dashboard-widget-sandbox-example/deploys)
+
 # Angular DREAM Stack
 
 **D**OM-less **R**outing **E**ngine **A**llowing **M**adness.
+
+[Demo](https://angular-dream.netlify.app/)
 
 ![Dashboard](apps/mfe-dashboard/src/assets/dashboard.png)
 
