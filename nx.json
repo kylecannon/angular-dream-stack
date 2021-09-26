@@ -1,6 +1,8 @@
 {
   "npmScope": "angular-dream",
-  "affected": { "defaultBase": "master" },
+  "affected": {
+    "defaultBase": "master"
+  },
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -10,15 +12,43 @@
     "tsconfig.base.json": "*"
   },
   "projects": {
-    "mfe-toh": { "tags": [] },
-    "toh": { "tags": [] },
-    "dashboard": { "tags": [] },
-    "mfe-dashboard": { "tags": [] },
-    "feature-app-view": { "tags": [] },
-    "app-utils": { "tags": [] },
-    "mfe-counter": { "tags": [] },
-    "counter": { "tags": [] },
-    "mfe-scoreboard": { "tags": [] },
-    "scoreboard": { "tags": [] }
+    "app-utils": {
+      "tags": []
+    },
+    "counter": {
+      "tags": []
+    },
+    "dashboard": {
+      "tags": []
+    },
+    "feature-app-view": {
+      "tags": []
+    },
+    "mfe-counter": {
+      "tags": []
+    },
+    "mfe-dashboard": {
+      "tags": []
+    },
+    "mfe-scoreboard": {
+      "tags": []
+    },
+    "mfe-toh": {
+      "tags": []
+    },
+    "scoreboard": {
+      "tags": []
+    },
+    "toh": {
+      "tags": []
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }

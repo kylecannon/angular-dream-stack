@@ -8,6 +8,5 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class MfeAppModule implements LoadableApp {
   EntryComponent = this.tohApp.EntryComponent;
-  constructor(private tohApp: TohAppModule) {
-  }
+  constructor(private tohApp: TohAppModule) {}
 }
