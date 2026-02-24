@@ -5,5 +5,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   templateUrl: './scoreboard-first-route.component.html',
   styleUrls: ['./scoreboard-first-route.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ScoreboardFirstRouteComponent {}

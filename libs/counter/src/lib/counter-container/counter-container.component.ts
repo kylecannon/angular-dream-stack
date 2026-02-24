@@ -7,6 +7,7 @@ import { State } from '../reducers';
   templateUrl: './counter-container.component.html',
   styleUrls: ['./counter-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CounterContainerComponent {
   constructor(public readonly store$: Store<State>) {}

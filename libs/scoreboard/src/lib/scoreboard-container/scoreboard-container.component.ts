@@ -7,6 +7,7 @@ import { State } from '../reducers';
   templateUrl: './scoreboard-container.component.html',
   styleUrls: ['./scoreboard-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ScoreboardContainerComponent {
   constructor(public store$: Store<State>) {}

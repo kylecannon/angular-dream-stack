@@ -5,5 +5,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './counter-second-route.component.html',
   styleUrls: ['./counter-second-route.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CounterSecondRouteComponent {}

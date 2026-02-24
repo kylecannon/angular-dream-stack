@@ -4,6 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'angular-dream-app-header',
   templateUrl: './app-header.component.html',
   styleUrls: ['./app-header.component.scss'],
+  standalone: false,
 })
 export class AppHeaderComponent {
   @Input() appName: string;

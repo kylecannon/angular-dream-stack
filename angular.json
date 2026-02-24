@@ -3,22 +3,22 @@
   "version": 1,
   "newProjectRoot": "",
   "cli": {
-    "analytics": "b7b7853f-d9c3-41a7-9fe8-457a3b94dc60",
-    "defaultCollection": "@nrwl/angular"
+    "analytics": false,
+    "defaultCollection": "@nx/angular"
   },
   "schematics": {
-    "@nrwl/angular:application": {
+    "@nx/angular:application": {
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
-    "@nrwl/angular:library": {
+    "@nx/angular:library": {
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest"
     },
-    "@nrwl/angular:component": {
+    "@nx/angular:component": {
       "style": "scss"
     }
   },
@@ -35,9 +35,8 @@
             "outputPath": "dist/apps/mfe-toh",
             "index": "apps/mfe-toh/src/index.html",
             "main": "apps/mfe-toh/src/main.ts",
-            "polyfills": "apps/mfe-toh/src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/mfe-toh/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/mfe-toh/src/favicon.ico",
               "apps/mfe-toh/src/assets"
@@ -54,7 +53,11 @@
                   "with": "apps/mfe-toh/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              },
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
@@ -80,13 +83,13 @@
         "serve": {
           "builder": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "mfe-toh:build",
+            "buildTarget": "mfe-toh:build",
             "extraWebpackConfig": "apps/mfe-toh/webpack.config.js",
             "port": 4003
           },
           "configurations": {
             "production": {
-              "browserTarget": "mfe-toh:build:production",
+              "buildTarget": "mfe-toh:build:production",
               "extraWebpackConfig": "apps/mfe-toh/webpack.prod.config.js"
             }
           }
@@ -94,11 +97,11 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mfe-toh:build"
+            "buildTarget": "mfe-toh:build"
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "builder": "@nx/eslint:lint",
           "options": {
             "lintFilePatterns": [
               "apps/mfe-toh/src/**/*.ts",
@@ -107,12 +110,11 @@
           }
         },
         "test": {
-          "builder": "ngx-build-plus:karma",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/apps/mfe-toh"],
           "options": {
             "jestConfig": "apps/mfe-toh/jest.config.js",
-            "passWithNoTests": true,
-            "extraWebpackConfig": "apps/mfe-toh/webpack.config.js"
+            "passWithNoTests": true
           }
         }
       }
@@ -124,7 +126,7 @@
       "prefix": "angular-dream",
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "builder": "@nx/eslint:lint",
           "options": {
             "lintFilePatterns": [
               "libs/toh/src/**/*.ts",
@@ -133,7 +135,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/libs/toh"],
           "options": {
             "jestConfig": "libs/toh/jest.config.js",
@@ -149,7 +151,7 @@
       "prefix": "angular-dream",
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "builder": "@nx/eslint:lint",
           "options": {
             "lintFilePatterns": [
               "libs/dashboard/src/**/*.ts",
@@ -158,7 +160,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/libs/dashboard"],
           "options": {
             "jestConfig": "libs/dashboard/jest.config.js",
@@ -174,7 +176,7 @@
       "prefix": "angular-dream",
       "architect": {
         "netlify-build": {
-          "builder": "@nrwl/workspace:run-commands",
+          "builder": "nx:run-commands",
           "options": {
             "commands": [
               "rm -rf dist",
@@ -186,19 +188,19 @@
           }
         },
         "build-all": {
-          "builder": "@nrwl/workspace:run-commands",
+          "builder": "nx:run-commands",
           "options": {
             "commands": [
-              "yarn build mfe-dashboard --prod",
-              "yarn build mfe-counter --prod",
-              "yarn build mfe-scoreboard --prod",
-              "yarn build mfe-toh --prod"
+              "yarn build mfe-dashboard --configuration production",
+              "yarn build mfe-counter --configuration production",
+              "yarn build mfe-scoreboard --configuration production",
+              "yarn build mfe-toh --configuration production"
             ],
             "parallel": true
           }
         },
         "serve-all": {
-          "builder": "@nrwl/workspace:run-commands",
+          "builder": "nx:run-commands",
           "options": {
             "commands": [
               "yarn start mfe-dashboard",
@@ -215,15 +217,17 @@
             "outputPath": "dist/apps/mfe-dashboard",
             "index": "apps/mfe-dashboard/src/index.html",
             "main": "apps/mfe-dashboard/src/main.ts",
-            "polyfills": "apps/mfe-dashboard/src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/mfe-dashboard/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/mfe-dashboard/src/favicon.ico",
               "apps/mfe-dashboard/src/assets"
             ],
             "styles": ["apps/mfe-dashboard/src/styles.scss"],
             "scripts": [],
+            "optimization": {
+              "fonts": false
+            },
             "extraWebpackConfig": "apps/mfe-dashboard/webpack.config.js"
           },
           "configurations": {
@@ -234,7 +238,11 @@
                   "with": "apps/mfe-dashboard/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              },
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
@@ -260,13 +268,13 @@
         "serve": {
           "builder": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "mfe-dashboard:build",
+            "buildTarget": "mfe-dashboard:build",
             "extraWebpackConfig": "apps/mfe-dashboard/webpack.config.js",
             "port": 4004
           },
           "configurations": {
             "production": {
-              "browserTarget": "mfe-dashboard:build:production",
+              "buildTarget": "mfe-dashboard:build:production",
               "extraWebpackConfig": "apps/mfe-dashboard/webpack.prod.config.js"
             }
           }
@@ -274,11 +282,11 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mfe-dashboard:build"
+            "buildTarget": "mfe-dashboard:build"
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "builder": "@nx/eslint:lint",
           "options": {
             "lintFilePatterns": [
               "apps/mfe-dashboard/src/**/*.ts",
@@ -287,12 +295,11 @@
           }
         },
         "test": {
-          "builder": "ngx-build-plus:karma",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/apps/mfe-dashboard"],
           "options": {
             "jestConfig": "apps/mfe-dashboard/jest.config.js",
-            "passWithNoTests": true,
-            "extraWebpackConfig": "apps/mfe-dashboard/webpack.config.js"
+            "passWithNoTests": true
           }
         }
       }
@@ -304,7 +311,7 @@
       "prefix": "angular-dream",
       "architect": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "builder": "@nx/eslint:lint",
           "options": {
             "lintFilePatterns": [
               "libs/feature-app-view/src/**/*.ts",
@@ -313,7 +320,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/libs/feature-app-view"],
           "options": {
             "jestConfig": "libs/feature-app-view/jest.config.js",
@@ -329,17 +336,16 @@
       "prefix": "angular-dream",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nx/eslint:lint",
           "options": {
-            "tsConfig": [
-              "libs/app-utils/tsconfig.lib.json",
-              "libs/app-utils/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/app-utils/**/*"]
+            "lintFilePatterns": [
+              "libs/app-utils/src/**/*.ts",
+              "libs/app-utils/src/**/*.html"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/libs/app-utils"],
           "options": {
             "jestConfig": "libs/app-utils/jest.config.js",
@@ -360,9 +366,8 @@
             "outputPath": "dist/apps/mfe-counter",
             "index": "apps/mfe-counter/src/index.html",
             "main": "apps/mfe-counter/src/main.ts",
-            "polyfills": "apps/mfe-counter/src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/mfe-counter/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/mfe-counter/src/favicon.ico",
               "apps/mfe-counter/src/assets"
@@ -379,7 +384,11 @@
                   "with": "apps/mfe-counter/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              },
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
@@ -405,13 +414,13 @@
         "serve": {
           "builder": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "mfe-counter:build",
+            "buildTarget": "mfe-counter:build",
             "extraWebpackConfig": "apps/mfe-counter/webpack.config.js",
             "port": 4001
           },
           "configurations": {
             "production": {
-              "browserTarget": "mfe-counter:build:production",
+              "buildTarget": "mfe-counter:build:production",
               "extraWebpackConfig": "apps/mfe-counter/webpack.prod.config.js"
             }
           }
@@ -419,27 +428,24 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mfe-counter:build"
+            "buildTarget": "mfe-counter:build"
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nx/eslint:lint",
           "options": {
-            "tsConfig": [
-              "apps/mfe-counter/tsconfig.app.json",
-              "apps/mfe-counter/tsconfig.spec.json",
-              "apps/mfe-counter/tsconfig.editor.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/mfe-counter/**/*"]
+            "lintFilePatterns": [
+              "apps/mfe-counter/src/**/*.ts",
+              "apps/mfe-counter/src/**/*.html"
+            ]
           }
         },
         "test": {
-          "builder": "ngx-build-plus:karma",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/apps/mfe-counter"],
           "options": {
             "jestConfig": "apps/mfe-counter/jest.config.js",
-            "passWithNoTests": true,
-            "extraWebpackConfig": "apps/mfe-counter/webpack.config.js"
+            "passWithNoTests": true
           }
         }
       }
@@ -451,17 +457,16 @@
       "prefix": "angular-dream",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nx/eslint:lint",
           "options": {
-            "tsConfig": [
-              "libs/counter/tsconfig.lib.json",
-              "libs/counter/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/counter/**/*"]
+            "lintFilePatterns": [
+              "libs/counter/src/**/*.ts",
+              "libs/counter/src/**/*.html"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/libs/counter"],
           "options": {
             "jestConfig": "libs/counter/jest.config.js",
@@ -482,9 +487,8 @@
             "outputPath": "dist/apps/mfe-scoreboard",
             "index": "apps/mfe-scoreboard/src/index.html",
             "main": "apps/mfe-scoreboard/src/main.ts",
-            "polyfills": "apps/mfe-scoreboard/src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "apps/mfe-scoreboard/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/mfe-scoreboard/src/favicon.ico",
               "apps/mfe-scoreboard/src/assets"
@@ -501,7 +505,11 @@
                   "with": "apps/mfe-scoreboard/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              },
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
@@ -527,13 +535,13 @@
         "serve": {
           "builder": "ngx-build-plus:dev-server",
           "options": {
-            "browserTarget": "mfe-scoreboard:build",
+            "buildTarget": "mfe-scoreboard:build",
             "extraWebpackConfig": "apps/mfe-scoreboard/webpack.config.js",
             "port": 4002
           },
           "configurations": {
             "production": {
-              "browserTarget": "mfe-scoreboard:build:production",
+              "buildTarget": "mfe-scoreboard:build:production",
               "extraWebpackConfig": "apps/mfe-scoreboard/webpack.prod.config.js"
             }
           }
@@ -541,27 +549,24 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mfe-scoreboard:build"
+            "buildTarget": "mfe-scoreboard:build"
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nx/eslint:lint",
           "options": {
-            "tsConfig": [
-              "apps/mfe-scoreboard/tsconfig.app.json",
-              "apps/mfe-scoreboard/tsconfig.spec.json",
-              "apps/mfe-scoreboard/tsconfig.editor.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/mfe-scoreboard/**/*"]
+            "lintFilePatterns": [
+              "apps/mfe-scoreboard/src/**/*.ts",
+              "apps/mfe-scoreboard/src/**/*.html"
+            ]
           }
         },
         "test": {
-          "builder": "ngx-build-plus:karma",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/apps/mfe-scoreboard"],
           "options": {
             "jestConfig": "apps/mfe-scoreboard/jest.config.js",
-            "passWithNoTests": true,
-            "extraWebpackConfig": "apps/mfe-scoreboard/webpack.config.js"
+            "passWithNoTests": true
           }
         }
       }
@@ -573,17 +578,16 @@
       "prefix": "angular-dream",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nx/eslint:lint",
           "options": {
-            "tsConfig": [
-              "libs/scoreboard/tsconfig.lib.json",
-              "libs/scoreboard/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/scoreboard/**/*"]
+            "lintFilePatterns": [
+              "libs/scoreboard/src/**/*.ts",
+              "libs/scoreboard/src/**/*.html"
+            ]
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "builder": "@nx/jest:jest",
           "outputs": ["coverage/libs/scoreboard"],
           "options": {
             "jestConfig": "libs/scoreboard/jest.config.js",

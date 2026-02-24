@@ -4,7 +4,7 @@ import { AppInstanceComponent } from './app-instance/app-instance.component';
 import { AppContainerComponent } from './app-container/app-container.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { AppUtilsModule } from '@angular-dream/app-utils';
-import { ReactiveComponentModule } from '@ngrx/component';
+import { LetDirective, PushPipe } from '@ngrx/component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -12,7 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     CommonModule,
     AppUtilsModule,
-    ReactiveComponentModule,
+    LetDirective,
+    PushPipe,
     MatButtonModule,
     MatIconModule,
   ],

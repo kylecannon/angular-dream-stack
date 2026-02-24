@@ -10,9 +10,9 @@
     "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES2022",
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"],
+    "lib": ["ES2022", "dom"],
     "paths": {
       "@angular-dream/toh": ["libs/toh/src/index.ts"],
       "@angular-dream/dashboard": ["libs/dashboard/src/index.ts"],
@@ -21,10 +21,12 @@
       "@angular-dream/counter": ["libs/counter/src/index.ts"],
       "@angular-dream/scoreboard": ["libs/scoreboard/src/index.ts"]
     },
-    "rootDir": "."
+    "rootDir": ".",
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

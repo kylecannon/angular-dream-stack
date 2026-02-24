@@ -5,6 +5,7 @@ import { LoadableApp } from '@angular-dream/app-utils';
   selector: 'angular-dream-app-container',
   templateUrl: './app-container.component.html',
   styleUrls: ['./app-container.component.scss'],
+  standalone: false,
 })
 export class AppContainerComponent {
   @Input() ngModuleRef: NgModuleRef<LoadableApp>;

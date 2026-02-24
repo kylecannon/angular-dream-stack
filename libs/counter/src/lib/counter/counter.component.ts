@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { State } from '../reducers';
 import { decrementCount, incrementCount } from '../actions/counter.actions';
 
@@ -8,9 +8,10 @@ import { decrementCount, incrementCount } from '../actions/counter.actions';
   templateUrl: './counter.component.html',
   styleUrls: ['./counter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CounterComponent {
-  count$ = this.store$.pipe(select((state) => state.counter.count));
+  count$ = this.store$.select((state) => state.counter.count);
 
   constructor(private store$: Store<State>) {}
 

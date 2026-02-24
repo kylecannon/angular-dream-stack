@@ -22,6 +22,7 @@ export abstract class AppInstance {
       useExisting: forwardRef(() => AppInstanceComponent),
     },
   ],
+  standalone: false,
 })
 export class AppInstanceComponent implements AppInstance {
   @Input() appRegistration: AppRegistration;

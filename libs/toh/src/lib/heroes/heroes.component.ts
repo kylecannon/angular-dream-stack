@@ -7,6 +7,7 @@ import { HeroService } from '../hero.service';
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css'],
+  standalone: false,
 })
 export class HeroesComponent implements OnInit {
   heroes: Hero[];

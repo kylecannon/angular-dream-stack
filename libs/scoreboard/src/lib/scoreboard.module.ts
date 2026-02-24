@@ -36,7 +36,7 @@ const routes: Route[] = [
   imports: [
     CommonModule,
     MatButtonModule,
-    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -53,7 +53,6 @@ const routes: Route[] = [
       // logOnly: environment.production,
     }),
   ],
-  entryComponents: [ScoreboardContainerComponent],
 })
 export class ScoreboardModule implements LoadableApp {
   EntryComponent = ScoreboardContainerComponent;

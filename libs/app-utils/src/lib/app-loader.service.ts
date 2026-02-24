@@ -1,25 +1,19 @@
 import {
-  Compiler,
+  createNgModule,
   Injectable,
   Injector,
-  NgModuleFactory,
-  Type,
 } from '@angular/core';
-import { fromPromise } from 'rxjs/internal-compatibility';
+import { from } from 'rxjs';
 import { PlatformLocation } from '@angular/common';
 import { AppPlatformLocation } from './app-platform-location.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppRegistration } from './app-registration';
-import { EffectsRunner } from '@ngrx/effects';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppLoader {
-  constructor(private compiler: Compiler) {}
-
   createParentInjector(injector: Injector) {
     return Injector.create({
       providers: [
@@ -29,10 +23,6 @@ export class AppLoader {
         },
         {
           provide: Store,
-          useValue: null,
-        },
-        {
-          provide: EffectsRunner,
           useValue: null,
         },
         {
@@ -46,12 +36,11 @@ export class AppLoader {
   }
 
   createNgModuleRef(registration: AppRegistration, injector: Injector) {
-    return fromPromise(
+    return from(
       registration
         .bundle()
-        .then((loadableApp) => this.compiler.compileModuleAsync(loadableApp))
-        .then((ngModuleFactory) =>
-          ngModuleFactory.create(this.createParentInjector(injector))
+        .then((loadableApp) =>
+          createNgModule(loadableApp, this.createParentInjector(injector))
         )
     );
   }

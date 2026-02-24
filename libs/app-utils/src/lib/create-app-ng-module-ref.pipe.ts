@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 
 @Pipe({
   name: 'createAppNgModuleRef',
+  standalone: false,
 })
 export class CreateAppNgModuleRefPipe implements PipeTransform {
   constructor(private readonly appLoader: AppLoader) {}

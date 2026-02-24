@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 
 @Directive({
   selector: '[renderApp]',
+  standalone: false,
 })
 export class RenderAppDirective implements OnDestroy {
   currentNgModuleRef?: NgModuleRef<unknown>;
@@ -30,11 +31,10 @@ export class RenderAppDirective implements OnDestroy {
       );
     }
 
-    const componentRef = ngModuleRef.componentFactoryResolver
-      .resolveComponentFactory(ngModuleRef.instance.EntryComponent)
-      .create(injector);
-
-    this.viewContainerRef.insert(componentRef.hostView);
+    const componentRef = this.viewContainerRef.createComponent(
+      ngModuleRef.instance.EntryComponent,
+      { injector }
+    );
 
     router?.initialNavigation();
     componentRef.changeDetectorRef.detectChanges();

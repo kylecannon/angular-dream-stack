@@ -14,6 +14,7 @@ type AvailableApps = { [appName: string]: AppRegistration };
   styleUrls: ['./dashboard-container.component.scss'],
   // Disabled changeDetection due to the fact that the tour of heros needs Zone.js to properly work.
   // changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class DashboardContainerComponent {
   availableApps: AvailableApps = {};

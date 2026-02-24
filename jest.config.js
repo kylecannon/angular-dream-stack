@@ -1,6 +1,5 @@
 module.exports = {
   projects: [
-    '<rootDir>/apps/mfe-app',
     '<rootDir>/apps/mfe-counter',
     '<rootDir>/apps/mfe-scoreboard',
     '<rootDir>/libs/counter',
